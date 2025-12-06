@@ -4,7 +4,6 @@ FROM debian:stable-slim
 RUN apt-get update && \
     apt-get install -y --no-install-recommends \
     perl \
-    curl \
     libcurses-perl \
     make \
     gcc \
