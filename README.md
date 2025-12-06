@@ -73,6 +73,24 @@ p     toggle pause
 
 ---
 
+## Docker
+
+If you prefer running `asciiquarium` inside a container, you can build and run it using `docker` or `podman` (Simply replace the word `docker` with `podman`)
+
+### Build the image
+
+```sh
+docker build -t asciiquarium .
+```
+
+### Run Asciiquarium
+
+```sh
+docker run -it --rm asciiquarium
+```
+
+---
+
 ## Contributors
 
 New fish species backported from the Android live wallpaper and other minor improvements by Claudio Matsuoka.
