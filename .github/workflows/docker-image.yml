@@ -23,7 +23,7 @@ jobs:
           password: ${{ secrets.QUAY_ENCRYPTED_PASSWORD }}
 
       - name: Build and push (latest)
-        if: github.ref == 'refs/heads/master'
+        if: ${{ github.ref == 'refs/heads/master' }}
         uses: docker/build-push-action@v6
         with:
           push: true
@@ -31,7 +31,7 @@ jobs:
             quay.io/canh25xp/asciiquarium:latest
 
       - name: Build and push version tag
-        if: startsWith(github.ref, 'refs/tags/v'
+        if: ${{ startsWith(github.ref, 'refs/tags/v') }}
         uses: docker/build-push-action@v6
         with:
           push: true
