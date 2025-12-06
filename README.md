@@ -81,6 +81,8 @@ If you prefer running `asciiquarium` inside a container, you can build and run i
 
 ```sh
 docker build -t asciiquarium .
+# OPTIONAL: use squash to remove the intermediate build stage image after finish.
+docker build -t asciiquarium . --squash
 ```
 
 ### Run Asciiquarium
