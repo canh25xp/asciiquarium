@@ -1,4 +1,5 @@
-FROM debian:stable-slim
+# ---- Stage 1: Build perl modules ----
+FROM debian:stable-slim AS builder
 
 # Install dependencies (Perl, Curses, compiler, cpanminus)
 RUN apt-get update && \
@@ -10,15 +11,26 @@ RUN apt-get update && \
     cpanminus && \
     rm -rf /var/lib/apt/lists/*
 
-# Install Term::Animation using cpanm (non-interactive)
-RUN cpanm --notest Term::Animation
+RUN cpanm --notest --local-lib=/perl-local Term::Animation
 
-# Copy project into container
+# ---- Stage 2: Minimal runtime image ----
+FROM debian:stable-slim
+
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends \
+    perl \
+    libcurses-perl && \
+    rm -rf /var/lib/apt/lists/*
+
 WORKDIR /app
-COPY . /app
 
-# Install asciiquarium script into PATH
-RUN install -m 755 /app/asciiquarium /usr/local/bin/asciiquarium
+COPY --from=builder /perl-local /perl-local
 
-# Default command
+# Set PERL5LIB so Perl finds the module
+ENV PERL5LIB=/perl-local/lib/perl5
+
+COPY asciiquarium /usr/local/bin/asciiquarium
+
+RUN chmod +x /usr/local/bin/asciiquarium
+
 CMD ["asciiquarium"]
