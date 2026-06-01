@@ -77,6 +77,12 @@ p     toggle pause
 
 If you prefer running `asciiquarium` inside a container, you can build and run it using `docker` or `podman` (Simply replace the word `docker` with `podman`)
 
+TLDR:
+
+```sh
+docker run -it --rm ghcr.io/canh25xp/asciiquarium:latest
+```
+
 ### Build the image
 
 ```sh
